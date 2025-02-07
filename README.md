@@ -3,6 +3,7 @@
 ![](README.files/image.png)
 
 训练自己的迷你中文大模型！
+
 Train your own small language model on your own PC
 
 ### 对话展示 Dialogue example
@@ -21,7 +22,9 @@ Train your own small language model on your own PC
 > 鹦鹉是一种可爱的动物。它们让我们的生活更加有趣。我们可以和鹦鹉一起玩，听它们发出的声音。鹦鹉是我们生活中很重要的一部分。
 
 ### 如何开始 How to 
+
 ####  安装依赖项 Install the requirements 
+
 ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 pip install zhconv
@@ -31,34 +34,49 @@ pip install jsonlines
 pip install matplotlib
 pip install torchao --extra-index-url https://download.pytorch.org/whl/cu124
 ```
+
 #### 下载训练数据 Download the dataset 
+
 ```bash
 git clone https://huggingface.co/datasets/fzmnm/TinyHelen-zh data/train_data
 mkdir data/train_data/tinyHelen-zh
 mv data/train_data/*.jsonl data/train_data/tinyHelen-zh/
 ```
+
 #### 预处理训练数据 Tokenize the dataset 
+
 ```bash
 python pretokenize.py data/train_data/tinyHelen-zh data/tokenized_train_data/tinyHelen-zh
 cp ./weights.yaml data/tokenized_train_data
 it takes a few minutes
 ```
+
 需要几分钟
+
 it takes a few minutes
 
 可以再自己准备一些测试数据，用同样的方法预处理好了之后放在 `data/tokenized_train_data/eval` 文件夹中
+
 you can also tokenize something and put them in `data/tokenized_train_data/eval` folder
 
 #### （可选）使用wandb来在线查看训练进度 (Optional) Set up wandb logging 
+
 在wandb.ai创建账号，然后
+
 go to wandb.ai and create an account, then
+
 ```bash
 wandb login
 ```
+
 #### 开始炼丹 Start Training Your Model
+
 修改 `train.py` 中的 `wandb_log=True`
+
 调整 `batch_size` 以适应你的 GPU 内存
+
 modify `wandb_log=True` in train.py
+
 adjust `batch_size` to fit your gpu memory
 
 ```bash
@@ -73,5 +91,7 @@ On my 4090m (equivalent to 4070, 16GB vram), 1 iteration takes 6 sec. Usually, i
 ```bash
 python inference.py data/checkpoints/my_llama_v1_64M_fp8/latest.pt -c
 ```
+
 加-c 是接龙模式。不加-c是问答模式（可以通过sft进一步调优）
+
 -c if for completion mode. without -c is assistant mode, but need sft to make it more robust
