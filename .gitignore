@@ -1,0 +1,17 @@
+.old/
+checkpoints/
+model/
+tokenized_train_data/
+tokenized_val_data/
+train_data/
+train_val_data.hidden/
+val_data/
+wandb/
+hf_export/model.py
+.vscode/
+.gradio/
+__pycache__/
+ARCHIVE/
+logs/
+.tmp/
+data/
